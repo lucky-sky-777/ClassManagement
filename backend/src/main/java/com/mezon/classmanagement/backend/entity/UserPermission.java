@@ -1,10 +1,7 @@
 package com.mezon.classmanagement.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,25 +25,17 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "permissions", uniqueConstraints = @UniqueConstraint(columnNames = {"action", "permitted_user_id"}))
-public class Permission {
+@Table(name = "user_permissions", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "permission_id"}))
+public class UserPermission {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(value = "id")
 	@Column(name = "id", nullable = false)
 	Long id;
 
-	@Enumerated(EnumType.STRING)
-	@JsonProperty(value = "action")
-	@Column(name = "action", nullable = false)
-	Action action;
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonProperty(value = "permitted_user_id")
-	@JoinColumn(name = "permitted_user_id", nullable = false)
-	User permitted;
+	@JoinColumn(name = "user_id", nullable = false)
+	User user;
 
-	public enum Action {
-		MANAGE_ACTIVITY, MANAGE_FUND
-	}
+	@Column(name = "permission_id", nullable = false)
+	Long permission_id;
 }

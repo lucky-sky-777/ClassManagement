@@ -1,6 +1,6 @@
 package com.mezon.classmanagement.backend.controller;
 
-import com.mezon.classmanagement.backend.dto.ClassMemberDto;
+import com.mezon.classmanagement.backend.dto.response.child.ClassMemberResponseDto;
 import com.mezon.classmanagement.backend.dto.response.ResponseDTO;
 import com.mezon.classmanagement.backend.service.ClassService;
 import lombok.AccessLevel;
@@ -22,7 +22,7 @@ public class ClassController {
 	ClassService classService;
 
 	@GetMapping("/{classId}/members")
-	public ResponseDTO<List<ClassMemberDto>> getClassMembers(@PathVariable Long classId) {
+	public ResponseDTO<List<ClassMemberResponseDto>> getClassMembers(@PathVariable Long classId) {
 		return new ResponseDTO<>(
 				true,
 				"Class members found",

@@ -1,6 +1,6 @@
 package com.mezon.classmanagement.backend.controller;
 
-import com.mezon.classmanagement.backend.dto.response.UserResponseDto;
+import com.mezon.classmanagement.backend.dto.response.child.UserResponseDto;
 import com.mezon.classmanagement.backend.dto.response.ResponseDTO;
 import com.mezon.classmanagement.backend.service.UserService;
 import lombok.AccessLevel;
@@ -40,6 +40,11 @@ public class UserController {
 										null
 								)
 						);
+	}
+
+	@GetMapping("/ex/ar")
+	public static String testEx() {
+		throw new ArithmeticException();
 	}
 
 }

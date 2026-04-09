@@ -1,9 +1,9 @@
-package com.mezon.classmanagement.backend.dto;
+package com.mezon.classmanagement.backend.dto.response.child;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mezon.classmanagement.backend.entity.ClassUser;
 
-public record ClassMemberDto(
+public record ClassMemberResponseDto(
 		@JsonProperty(value = "class_id")
 		Long classId,
 

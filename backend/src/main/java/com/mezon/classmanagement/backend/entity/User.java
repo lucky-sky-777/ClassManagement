@@ -1,7 +1,5 @@
 package com.mezon.classmanagement.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,33 +29,25 @@ import java.time.Instant;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(value = "id")
 	@Column(name = "id", nullable = false)
 	Long id;
 
 	@Enumerated(EnumType.STRING)
-	@JsonProperty(value = "type")
 	@Column(name = "type", nullable = false)
 	Type type;
 
-	@JsonProperty(value = "username")
 	@Column(name = "username", nullable = false, unique = true)
 	String username;
 
-	@JsonProperty(value = "hashed_password")
 	@Column(name = "hashed_password", nullable = true)
 	String hashedPassword;
 
-	@JsonProperty(value = "display_name")
 	@Column(name = "display_name", nullable = true)
 	String displayName;
 
-	@JsonProperty(value = "avatar_url")
 	@Column(name = "avatar_url", nullable = true)
 	String avatarUrl;
 
-	@JsonFormat(pattern = "HH:mm, dd/MM/yyyy", timezone = "Asia/Ho_Chi_Minh")
-	@JsonProperty(value = "joined_at")
 	@Column(name = "joined_at", nullable = false, insertable = false, updatable = false)
 	Instant joinedAt;
 

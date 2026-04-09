@@ -1,6 +1,6 @@
 package com.mezon.classmanagement.backend.repository;
 
-import com.mezon.classmanagement.backend.dto.ClassMemberDto;
+import com.mezon.classmanagement.backend.dto.response.child.ClassMemberResponseDto;
 import com.mezon.classmanagement.backend.entity.Class;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface ClassRepository extends JpaRepository<Class, Long> {
 
 	@Query(value = """
-		SELECT new com.mezon.classmanagement.backend.dto.ClassMemberDto(
+		SELECT new com.mezon.classmanagement.backend.dto.response.child.ClassMemberResponseDto(
 			class.id,
 			class.name,
 			user.id,
@@ -25,6 +25,6 @@ public interface ClassRepository extends JpaRepository<Class, Long> {
 		JOIN classUser.user user
 		WHERE class.id = :classId
 	""")
-	List<ClassMemberDto> getClassMembers(Long classId);
+	List<ClassMemberResponseDto> getClassMembers(Long classId);
 
 }

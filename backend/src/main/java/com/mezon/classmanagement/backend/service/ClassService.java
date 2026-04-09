@@ -1,6 +1,6 @@
 package com.mezon.classmanagement.backend.service;
 
-import com.mezon.classmanagement.backend.dto.ClassMemberDto;
+import com.mezon.classmanagement.backend.dto.response.child.ClassMemberResponseDto;
 import com.mezon.classmanagement.backend.repository.ClassRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ public class ClassService {
 
 	ClassRepository classRepository;
 
-	public List<ClassMemberDto> getClassMembers(Long classId) {
+	public List<ClassMemberResponseDto> getClassMembers(Long classId) {
 		return classRepository.getClassMembers(classId);
 	}
 

@@ -1,6 +1,6 @@
 package com.mezon.classmanagement.backend.mapper;
 
-import com.mezon.classmanagement.backend.dto.response.UserResponseDto;
+import com.mezon.classmanagement.backend.dto.response.child.UserResponseDto;
 import com.mezon.classmanagement.backend.entity.User;
 import org.mapstruct.Mapper;
 

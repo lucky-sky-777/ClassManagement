@@ -1,6 +1,5 @@
 package com.mezon.classmanagement.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,12 +28,10 @@ import lombok.experimental.FieldDefaults;
 public class Row {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(value = "id")
 	@Column(name = "id", nullable = false)
 	Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonProperty(value = "class_id")
 	@JoinColumn(name = "class_id", nullable = false)
 	Class clazz;
 }

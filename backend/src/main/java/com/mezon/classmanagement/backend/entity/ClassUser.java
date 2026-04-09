@@ -1,7 +1,5 @@
 package com.mezon.classmanagement.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,27 +33,21 @@ import java.time.Instant;
 public class ClassUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(value = "id")
 	@Column(name = "id", nullable = false)
 	Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonProperty(value = "class_id")
 	@JoinColumn(name = "class_id", nullable = false)
 	Class clazz;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonProperty(value = "user_id")
 	@JoinColumn(name = "user_id", nullable = false)
 	User user;
 
 	@Enumerated(EnumType.STRING)
-	@JsonProperty(value = "role")
 	@Column(name = "role", nullable = false)
 	Role role;
 
-	@JsonFormat(pattern = "HH:mm, dd/MM/yyyy", timezone = "Asia/Ho_Chi_Minh")
-	@JsonProperty(value = "joined_at")
 	@Column(name = "joined_at", nullable = false, insertable = false, updatable = false)
 	Instant joinedAt;
 

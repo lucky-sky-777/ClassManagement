@@ -1,6 +1,6 @@
 package com.mezon.classmanagement.backend.service;
 
-import com.mezon.classmanagement.backend.dto.response.UserResponseDto;
+import com.mezon.classmanagement.backend.dto.response.child.UserResponseDto;
 import com.mezon.classmanagement.backend.entity.User;
 import com.mezon.classmanagement.backend.mapper.UserMapper;
 import com.mezon.classmanagement.backend.repository.UserRepository;

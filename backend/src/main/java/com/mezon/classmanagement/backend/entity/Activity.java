@@ -1,6 +1,5 @@
 package com.mezon.classmanagement.backend.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,20 +28,16 @@ import lombok.experimental.FieldDefaults;
 public class Activity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonProperty(value = "id")
 	@Column(name = "id")
 	Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonProperty(value = "class_id")
 	@JoinColumn(name = "class_id", nullable = false)
 	Class clazz;
 
-	@JsonProperty(value = "name")
 	@Column(name = "name")
 	String name;
 
-	@JsonProperty(value = "point")
 	@Column(name = "point")
 	Short point;
 }
