@@ -65,9 +65,35 @@ Khi thêm một trang mới cần yêu cầu đăng nhập, hãy thêm vào `Pri
 
 ---
 
+## 🎨 Cấu hình Tailwind CSS & Theme
 
+Dự án sử dụng Tailwind CSS kết hợp với CSS Variables để quản lý giao diện linh hoạt (hỗ trợ Light/Dark mode).
+
+### Theme Configuration
+Các biến màu và font được định nghĩa trong `src/styles/global.css` và map vào `tailwind.config.js`. Bạn có thể sử dụng các utility class sau:
+
+- **Colors**:
+    - `text-background`, `bg-background`
+    - `text-foreground`, `text-foreground-heading`
+    - `border-border`
+    - `bg-code`
+    - `text-accent`, `bg-accent-bg`, `border-accent-border`
+- **Fonts**:
+    - `font-sans`, `font-heading`, `font-mono`
+- **Shadow**:
+    - `shadow-theme`
+
+### Ví dụ sử dụng:
+```tsx
+<h1 className="text-foreground-heading font-heading text-4xl shadow-theme">
+  Title Example
+</h1>
+```
+
+---
 
 ## 🛠 Path Aliases
+
 Sử dụng alias để code sạch hơn (Cấu hình tại `vite.config.ts` và `tsconfig.json`):
 - `@app/*` -> `src/app/*`
 - `@features/*` -> `src/features/*`
