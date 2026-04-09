@@ -49,7 +49,6 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                 'Trao đổi tài liệu\n(cộng đồng)',
                 'Java',
                 'OOP',
-                'Lập trình C++'
               ].map((item, index) => (
                 <li key={index} className="flex items-center gap-3 px-8 py-3 hover:bg-gray-200 cursor-pointer text-gray-700 transition-colors">
                   <Users size={18} className="text-gray-500 shrink-0" />
