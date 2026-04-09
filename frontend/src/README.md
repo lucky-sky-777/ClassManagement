@@ -5,45 +5,70 @@ Dự án này sử dụng kiến trúc phân lớp dựa trên feature (Feature-
 ## Cấu trúc thư mục `src/`
 
 ### 1. `app/`
-Chứa các thiết lập ở cấp độ toàn ứng dụng (Global configuration).
+Thiết lập cấp độ toàn ứng dụng (Global configuration).
 - `router/`: Cấu hình React Router.
+    - `guards.tsx`: Chứa `PrivateRoute` (bảo vệ route cần đăng nhập) và `PublicRoute` (chặn user đã login vào trang Login/Register).
+- `providers/`: Các Context Provider toàn cục.
+    - `AuthProvider.tsx`: Quản lý trạng thái đăng nhập, thông tin User và JWT.
 - `store/`: Quản lý state toàn cục (Redux, Zustand, v.v.).
-- `providers/`: Các Context Provider toàn cục như Theme, AuthProvider, React Query.
-- `index.tsx`: Entry point chính của ứng dụng React.
+- `index.tsx`: Entry point chính của ứng dụng.
 
 ### 2. `features/`
-**CORE:** Chứa logic nghiệp vụ được chia theo domain/feature. Mỗi feature là một folder độc lập:
-- `api/`: Các lời gọi API riêng cho feature đó.
-- `components/`: UI components chỉ dùng trong feature.
-- `hooks/`: Custom hooks dành riêng cho feature.
-- `pages/`: Các trang (Pages) thuộc feature này.
-- `store/`: State riêng của feature (nếu có).
-- `types/`: Định nghĩa kiểu dữ liệu TypeScript cho feature.
+**CORE:** Logic nghiệp vụ chia theo domain. Mỗi feature là một folder độc lập:
+- `auth/`: Xử lý đăng nhập, đăng ký, phân quyền.
+    - `hooks/useAuth.ts`: Hook chính để truy cập thông tin user và hàm login/logout.
+- `chat/`, `post/`, `user/`: Các tính năng khác của hệ thống.
 
 ### 3. `shared/`
-Chứa các thành phần dùng chung cho toàn bộ hệ thống.
-- `components/`: Các UI components cơ bản (Button, Input, Modal, v.v.).
-- `hooks/`: Các hooks tiện ích dùng chung (useDebounce, useFetch, v.v.).
-- `utils/`: Các hàm helper, format dữ liệu.
-- `constants/`: Các hằng số toàn cục.
-- `types/`: Các kiểu dữ liệu dùng chung.
+Các thành phần dùng chung (Reusable assets).
+- `components/`: UI components cơ bản (Button, Input, Modal).
+- `hooks/`: Hooks tiện ích (useDebounce, useFetch).
+- `utils/`: Hàm helper, format dữ liệu.
 
 ### 4. `services/`
-Các tích hợp với bên thứ ba hoặc các dịch vụ dùng chung.
-- `api-client.ts`: Cấu hình axios/fetch với base URL và interceptors.
-- `websocket.ts`: Quản lý kết nối socket.
-- `supabase.ts`: Tích hợp database/auth bên thứ ba.
-
-### 5. `assets/`
-Chứa các tệp tĩnh như hình ảnh, biểu tượng (icons), phông chữ (fonts).
-
-### 6. `styles/`
-Quản lý các tệp CSS toàn cục, biến môi trường CSS, hoặc cấu hình Tailwind.
+Các dịch vụ dùng chung và tích hợp API.
+- `api-client.ts`: Cấu hình Axios instance. 
+    - **Request Interceptor**: Tự động đính kèm `Authorization: Bearer <token>` vào header.
+    - **Response Interceptor**: Tự động xử lý lỗi `401 Unauthorized` (xóa token và redirect về trang login).
 
 ---
 
-## Path Aliases (Tên viết tắt đường dẫn)
-Bạn có thể sử dụng các bí danh sau để tránh việc `../../../`:
+## Hệ thống Authentication (JWT)
+
+Dự án sử dụng JWT để xác thực người dùng. Dưới đây là các điểm cần lưu ý:
+
+### Cách sử dụng Auth Hook
+Để lấy thông tin user hoặc thực hiện logout trong component:
+```tsx
+import { useAuth } from '@features/auth/hooks/useAuth';
+
+const MyComponent = () => {
+  const { user, isAuthenticated, logout } = useAuth();
+  // ...
+};
+```
+
+### Bảo vệ Route
+Khi thêm một trang mới cần yêu cầu đăng nhập, hãy thêm vào `PrivateRoute` trong `src/app/router/index.tsx`:
+```tsx
+{
+  element: <PrivateRoute />,
+  children: [
+    { path: '/dashboard', element: <DashboardPage /> }
+  ]
+}
+```
+
+### Quản lý Token
+- **Lưu trữ**: Token được lưu trong `localStorage` với key `access_token`.
+- **Hết hạn**: Khi API trả về lỗi 401, hệ thống sẽ tự động dọn dẹp bộ nhớ và đẩy người dùng về trang Login.
+
+---
+
+
+
+## 🛠 Path Aliases
+Sử dụng alias để code sạch hơn (Cấu hình tại `vite.config.ts` và `tsconfig.json`):
 - `@app/*` -> `src/app/*`
 - `@features/*` -> `src/features/*`
 - `@shared/*` -> `src/shared/*`
@@ -51,4 +76,4 @@ Bạn có thể sử dụng các bí danh sau để tránh việc `../../../`:
 - `@assets/*` -> `src/assets/*`
 - `@styles/*` -> `src/styles/*`
 
-Ví dụ: `import { Button } from '@shared/components/Button';`
+Ví dụ: `import { apiClient } from '@services/api-client';`
