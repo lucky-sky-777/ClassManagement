@@ -25,8 +25,9 @@ dependencies {
 	implementation("org.projectlombok:lombok")
 
 	implementation("org.mapstruct:mapstruct:1.6.3")
-	//implementation("org.springframework.boot:spring-boot-starter-security")
-	//testImplementation("org.springframework.security:spring-security-test")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.security:spring-security-crypto")
+	testImplementation("org.springframework.security:spring-security-test")
 	annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok-mapstruct-binding:0.2.0")

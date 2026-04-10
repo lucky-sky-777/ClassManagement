@@ -2,6 +2,7 @@ package com.mezon.classmanagement.backend.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mezon.classmanagement.backend.constant.DateTimeConstant;
 
 import java.time.Instant;
 
@@ -15,7 +16,7 @@ public record ResponseDTO<Data>(
 		@JsonProperty(value = "data")
 		Data data,
 
-		@JsonFormat(pattern = "HH:mm, dd/MM/yyyy", timezone = "Asia/Ho_Chi_Minh")
+		@JsonFormat(pattern = DateTimeConstant.PATTERN, timezone = DateTimeConstant.TIMEZONE)
 		@JsonProperty(value = "time")
 		Instant timestamp
 ) {

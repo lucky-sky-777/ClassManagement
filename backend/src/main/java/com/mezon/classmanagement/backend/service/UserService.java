@@ -2,6 +2,7 @@ package com.mezon.classmanagement.backend.service;
 
 import com.mezon.classmanagement.backend.dto.response.child.UserResponseDto;
 import com.mezon.classmanagement.backend.entity.User;
+import com.mezon.classmanagement.backend.exception.NotFoundException;
 import com.mezon.classmanagement.backend.mapper.UserMapper;
 import com.mezon.classmanagement.backend.repository.UserRepository;
 import lombok.AccessLevel;
@@ -19,9 +20,11 @@ public class UserService {
 	UserRepository userRepository;
 	UserMapper userMapper;
 
-	public Optional<UserResponseDto> getByUsername(String username) {
+	public UserResponseDto findByUsername(String username) {
 		Optional<User> userOptional = userRepository.findByUsername(username);
-		return userOptional.map(userMapper::toUserResponseDto);
+		return userOptional
+				.map(userMapper::toUserResponseDto)
+				.orElseThrow(() -> new NotFoundException("User not found"));
 	}
 
 }

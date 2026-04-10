@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 @RestController
@@ -21,29 +19,20 @@ public class UserController {
 
 	UserService userService;
 
+	// test
 	@GetMapping("/{username}")
 	public ResponseDTO<UserResponseDto> getUser(@PathVariable String username) {
-		Optional<UserResponseDto> userResponseDtoOptional = userService.getByUsername(username);
-		return
-				userResponseDtoOptional
-						.map(userResponseDto ->
-								new ResponseDTO<>(
-										true,
-										"User found",
-										userResponseDto
-								)
-						)
-						.orElseGet(() ->
-								new ResponseDTO<>(
-										false,
-										"User not found",
-										null
-								)
-						);
+		UserResponseDto userResponseDto = userService.findByUsername(username);
+		return new ResponseDTO<>(
+				true,
+				"User found",
+				userResponseDto
+		);
 	}
 
+	// test
 	@GetMapping("/ex/ar")
-	public static String testEx() {
+	public static void testEx() {
 		throw new ArithmeticException();
 	}
 
