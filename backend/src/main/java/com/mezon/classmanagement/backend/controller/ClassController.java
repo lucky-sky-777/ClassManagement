@@ -23,6 +23,7 @@ public class ClassController {
 
 	@GetMapping("/{classId}/members")
 	public ResponseDTO<List<ClassMemberResponseDto>> getClassMembers(@PathVariable Long classId) {
+		// gia huy
 		return new ResponseDTO<>(
 				true,
 				"Class members found",
